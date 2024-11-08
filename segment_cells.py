@@ -15,10 +15,10 @@ for file in os.listdir(dir):
         # check that we did not already do this one
         if not basename + '_cell_mask.npy' in already_list:
             # take max projection to make the cell mask
-            img = np.max(h.File(os.path.join(dir,file))['data'][:,:,:],axis=0)
+            img = h.File(os.path.join(dir,file))['data'][:,:,:]
 
             viewer = napari.view_image(img,name=basename,colormap='grey')
-            layer2 = np.zeros(img.shape).astype(int)
+            layer2 = np.zeros(img.shape[1:]).astype(int)
             viewer.add_labels(layer2, name='cell')
 
             input('press enter to save ')
